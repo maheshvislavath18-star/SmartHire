@@ -1,0 +1,54 @@
+<style>
+    .nav{
+        background: #1e293b;
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+
+    .nav a{
+        color: white;
+        text-decoration: none;
+        margin-right: 15px;
+        font-weight: bold;
+    }
+
+    .nav a:hover{
+        color: #38bdf8;
+    }
+
+    .left, .right{
+        display: flex;
+        align-items: center;
+    }
+
+    .brand{
+        font-size: 18px;
+        font-weight: bold;
+        margin-right: 25px;
+    }
+</style>
+
+<div class="nav">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+
+        <div class="brand">SmartHire</div>
+
+        <a href="/">Home</a>
+        <a href="/dashboard/">Dashboard</a>
+        <a href="/applications/add-job/">Add Job</a>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+
+        <a href="/accounts/logout/">Logout</a>
+
+    </div>
+
+</div>

@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+    .dashboard-title{
+        margin-bottom:30px;
+    }
+
+    .dashboard-title h1{
+        color:#0f172a;
+        font-size:32px;
+    }
+
+    /* GRID */
+    .stats-container{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+        gap:25px;
+    }
+
+    /* CARD */
+    .stat-card{
+        position:relative;
+        overflow:hidden;
+        padding:30px;
+        border-radius:18px;
+        color:white;
+        box-shadow:0px 6px 18px rgba(0,0,0,0.12);
+        transition:0.4s;
+    }
+
+    .stat-card:hover{
+        transform:translateY(-8px) scale(1.02);
+        box-shadow:0px 10px 25px rgba(0,0,0,0.18);
+    }
+
+    /* ICON */
+    .icon{
+        font-size:45px;
+        margin-bottom:15px;
+    }
+
+    /* NUMBER */
+    .stat-card h2{
+        font-size:42px;
+        margin-bottom:10px;
+    }
+
+    /* LABEL */
+    .stat-card p{
+        font-size:18px;
+        font-weight:bold;
+    }
+
+    /* COLORS */
+
+    .blue{
+        background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    }
+
+    .yellow{
+        background:linear-gradient(135deg,#f59e0b,#ca8a04);
+    }
+
+    .green{
+        background:linear-gradient(135deg,#22c55e,#15803d);
+    }
+
+    .red{
+        background:linear-gradient(135deg,#ef4444,#b91c1c);
+    }
+
+    /* GLOW EFFECT */
+    .stat-card::before{
+        content:'';
+        position:absolute;
+        width:120px;
+        height:120px;
+        background:rgba(255,255,255,0.15);
+        border-radius:50%;
+        top:-30px;
+        right:-30px;
+    }
+
+</style>
+
+<div class="dashboard-title">
+
+    <h1>
+        Welcome {{ request.user.username }} 👋
+    </h1>
+
+</div>
+
+<div class="stats-container">
+
+    <!-- TOTAL JOBS -->
+    <div class="stat-card blue">
+
+        <div class="icon">💼</div>
+
+        <h2>{{ total_jobs }}</h2>
+
+        <p>Total Jobs</p>
+
+    </div>
+
+    <!-- APPLICATIONS -->
+    <div class="stat-card yellow">
+
+        <div class="icon">📄</div>
+
+        <h2>{{ total_applications }}</h2>
+
+        <p>Total Applications</p>
+
+    </div>
+
+    <!-- ACCEPTED -->
+    <div class="stat-card green">
+
+        <div class="icon">✅</div>
+
+        <h2>{{ accepted }}</h2>
+
+        <p>Accepted</p>
+
+    </div>
+
+    <!-- REJECTED -->
+    <div class="stat-card red">
+
+        <div class="icon">❌</div>
+
+        <h2>{{ rejected }}</h2>
+
+        <p>Rejected</p>
+
+    </div>
+
+</div>
+
+{% endblock %}

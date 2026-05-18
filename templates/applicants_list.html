@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Applicants Dashboard</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar{
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container{
+            width: 80%;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        .job-title{
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 10px #ddd;
+        }
+
+        /* FILTER BOX */
+        .filter-box{
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ddd;
+        }
+
+        .filter-box input,
+        .filter-box select{
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        .app-card{
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ddd;
+        }
+
+        /* STATUS BADGES */
+        .status{
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .Pending{
+            background: #facc15;
+            color: black;
+        }
+
+        .Accepted{
+            background: #22c55e;
+            color: white;
+        }
+
+        .Rejected{
+            background: #ef4444;
+            color: white;
+        }
+
+        /* BUTTONS */
+        .btn{
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+            margin-right: 10px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .accept{
+            background: #16a34a;
+        }
+
+        .reject{
+            background: #dc2626;
+        }
+
+        .resume{
+            background: #2563eb;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h2>Applicants Dashboard</h2>
+</div>
+
+<div class="container">
+
+    <!-- JOB INFO -->
+    <div class="job-title">
+        <h2>{{ job.title }}</h2>
+        <p>{{ job.company }}</p>
+    </div>
+
+    <!-- FILTER BOX -->
+    <div class="filter-box">
+
+        <form method="GET">
+
+            <input type="text" name="search" placeholder="Search name/email">
+
+            <select name="status">
+                <option value="">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+
+            <button type="submit">Filter</button>
+
+        </form>
+
+    </div>
+
+    <!-- APPLICANTS -->
+    {% for app in applications %}
+
+    <div class="app-card">
+
+        <h3>{{ app.name }}</h3>
+
+        <p>Email: {{ app.email }}</p>
+        <p>Message: {{ app.message }}</p>
+
+        <!-- STATUS -->
+        <p>
+            Status:
+            <span class="status {{ app.status }}">
+                {{ app.status }}
+            </span>
+        </p>
+
+        <!-- RESUME -->
+        {% if app.resume %}
+            <a href="{{ app.resume.url }}" target="_blank" class="btn resume">
+                📄 View Resume
+            </a>
+        {% endif %}
+
+        <br>
+
+        <!-- ACTION BUTTONS -->
+        <a href="{% url 'update_status' app.id 'Accepted' %}" class="btn accept">
+            Accept
+        </a>
+
+        <a href="{% url 'update_status' app.id 'Rejected' %}" class="btn reject">
+            Reject
+        </a>
+
+    </div>
+
+    {% empty %}
+
+    <div class="app-card">
+        <h3>No Applications Yet</h3>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume List</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar{
+            background: #1e293b;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        .container{
+            width: 80%;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        .card{
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ddd;
+        }
+
+        .title{
+            font-size: 18px;
+            font-weight: bold;
+            color: #0f172a;
+        }
+
+        .info{
+            color: #475569;
+            margin: 5px 0;
+        }
+
+        .status{
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .Pending{
+            background: orange;
+            color: white;
+        }
+
+        .Accepted{
+            background: green;
+            color: white;
+        }
+
+        .Rejected{
+            background: red;
+            color: white;
+        }
+
+        .resume-status{
+            margin-top: 10px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        .empty{
+            text-align: center;
+            margin-top: 40px;
+            color: gray;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h2>Uploaded Resumes</h2>
+</div>
+
+<div class="container">
+
+    {% for app in applications %}
+
+    <div class="card">
+
+        <div class="title">{{ app.name }}</div>
+
+        <div class="info">Email: {{ app.email }}</div>
+        <div class="info">Job: {{ app.job.title }}</div>
+
+        <!-- STATUS -->
+        <div class="status {{ app.status }}">
+            {{ app.status }}
+        </div>
+
+        <!-- RESUME STATUS ONLY -->
+        {% if app.resume %}
+            <p class="resume-status">Resume Uploaded ✔</p>
+        {% else %}
+            <p class="resume-status">No Resume Uploaded ❌</p>
+        {% endif %}
+
+    </div>
+
+    {% empty %}
+
+    <p class="empty">No resumes found</p>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

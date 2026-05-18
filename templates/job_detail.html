@@ -1,0 +1,71 @@
+<!-- templates/job_detail.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Job Details</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background-color:#f4f4f4;
+        }
+
+        .container{
+            width:70%;
+            margin:auto;
+            margin-top:40px;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px gray;
+        }
+
+        .btn{
+            background:#16a34a;
+            color:white;
+            padding:12px 20px;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+        .btn:hover{
+            background:#15803d;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>{{job.title}}</h1>
+
+        <h2>{{job.company}}</h2>
+
+        <hr>
+
+        <p><b>Location:</b> {{job.location}}</p>
+
+        <p><b>Salary:</b> ₹ {{job.salary}}</p>
+
+        <p><b>Required Skills:</b> {{job.skills}}</p>
+
+        <p><b>Description:</b></p>
+
+        <p>{{job.description}}</p>
+
+        <br>
+
+        <a href="/applications/apply/" class="btn">
+            Apply Now
+        </a>
+
+    </div>
+
+</body>
+</html>

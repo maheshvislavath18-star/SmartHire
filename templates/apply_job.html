@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+    .apply-box{
+        width:500px;
+        margin:auto;
+        margin-top:40px;
+        background:white;
+        padding:30px;
+        border-radius:12px;
+        box-shadow:0px 0px 15px #d1d5db;
+    }
+
+    .apply-box h1{
+        text-align:center;
+        margin-bottom:25px;
+        color:#1e293b;
+    }
+
+    .apply-box label{
+        font-weight:bold;
+        display:block;
+        margin-bottom:8px;
+        color:#334155;
+    }
+
+    .apply-box input,
+    .apply-box textarea{
+        width:100%;
+        padding:12px;
+        border:1px solid #cbd5e1;
+        border-radius:6px;
+        margin-bottom:20px;
+        font-size:15px;
+    }
+
+    .apply-box textarea{
+        height:120px;
+        resize:none;
+    }
+
+    .apply-btn{
+        width:100%;
+        padding:14px;
+        background:#2563eb;
+        color:white;
+        border:none;
+        border-radius:6px;
+        font-size:16px;
+        cursor:pointer;
+    }
+
+    .apply-btn:hover{
+        background:#1d4ed8;
+    }
+
+    .file-note{
+        font-size:12px;
+        color:gray;
+        margin-top:-10px;
+        margin-bottom:15px;
+    }
+
+</style>
+
+
+<div class="apply-box">
+
+    <h1>Apply for {{ job.title }}</h1>
+
+    <!-- IMPORTANT: multipart/form-data is required for file upload -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- NAME -->
+        <label>Your Name</label>
+        <input type="text" name="name" value="{{ request.user.username }}" readonly>
+
+        <!-- EMAIL -->
+        <label>Email</label>
+        <input type="email" name="email" value="{{ request.user.email }}" readonly>
+
+        <!-- MESSAGE -->
+        <label>Why should we hire you?</label>
+        <textarea name="message" placeholder="Write something about yourself..." required></textarea>
+
+        <!-- RESUME -->
+        <label>Upload Resume</label>
+        <input type="file" name="resume" accept=".pdf,.doc,.docx">
+
+        <div class="file-note">
+            Allowed formats: PDF, DOC, DOCX
+        </div>
+
+        <button type="submit" class="apply-btn">
+            Submit Application
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}
