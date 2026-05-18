@@ -50,25 +50,25 @@ SmartHire is a Django-based job portal project where recruiters can post jobs an
 
 \### Home Page
 
-!\[Home](templates/screenshots/main.png)
+!\[Home](screenshots/main.png)
 
 
 
 \### Dashboard
 
-!\[Dashboard](templates/screenshots/dashboard.png)
+!\[Dashboard](screenshots/dashboard.png)
 
 
 
 \### Applicants
 
-!\[Applicants](templates/screenshots/applicants.png)
+!\[Applicants](screenshots/applicants.png)
 
 
 
 \### Login
 
-!\[Login](templates/screenshots/login.png)
+!\[Login](screenshots/login.png)
 
 
 
