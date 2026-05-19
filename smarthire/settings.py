@@ -25,8 +25,11 @@ SECRET_KEY = 'django-insecure-azcxe3o7ltqtnwil3f!x5*l7q$irdm^e2++ult0n&rdk=p-p^2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    "smarthire-prod.onrender.com",
+    "localhost",
+    "127.0.0.1"
+]
 
 # Application definition
 
