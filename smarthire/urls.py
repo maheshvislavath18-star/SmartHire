@@ -17,31 +17,29 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-# 🚀 MEDIA IMPORT (FOR RESUME FILES)
 from django.conf import settings
 from django.conf.urls.static import static
 
-# 👇 IMPORT YOUR DASHBOARD VIEW (IMPORTANT)
 from jobs import views as job_views
 
 
 urlpatterns = [
-    # 🧑‍💻 ADMIN PANEL
+    # 🧑‍💻 ADMIN
     path('admin/', admin.site.urls),
 
-    # 🔐 AUTH SYSTEM
+    # 🔐 AUTH
     path('accounts/', include('accounts.urls')),
 
-    # 🏠 JOBS APP (HOME PAGE + JOBS)
+    # 🏠 MAIN JOB APP (IMPORTANT)
     path('', include('jobs.urls')),
 
-    # 📄 APPLICATION SYSTEM
+    # 📄 APPLICATIONS
     path('applications/', include('applications.urls')),
 
-    # 📊 DASHBOARD (IMPORTANT FIX FOR YOUR 404 ERROR)
+    # 📊 DASHBOARD
     path('dashboard/', job_views.dashboard, name='dashboard'),
 ]
 
-# 🚀 MEDIA FILE SERVING (RESUME DOWNLOAD FIX)
+# MEDIA FILES
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

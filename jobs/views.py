@@ -8,20 +8,6 @@ from .forms import JobForm
 from accounts.models import Profile
 
 
-# 🔥 RECRUITER - SEE APPLICANTS
-@login_required
-def recruiter_applicants(request, job_id):
-
-    job = get_object_or_404(Job, id=job_id)
-
-    applications = Application.objects.filter(job=job).order_by('-id')
-
-    return render(request, 'applicants_list.html', {
-        'job': job,
-        'applications': applications
-    })
-
-
 # 🔥 HOME PAGE (SEARCH + FILTERS)
 def home(request):
 
@@ -32,7 +18,7 @@ def home(request):
 
     jobs = Job.objects.all()
 
-    # 🔍 SEARCH FILTER
+    # SEARCH FILTER
     if query:
         jobs = jobs.filter(
             Q(title__icontains=query) |
@@ -40,18 +26,18 @@ def home(request):
             Q(company__icontains=query)
         )
 
-    # 📍 LOCATION FILTER
+    # LOCATION FILTER
     if location:
         jobs = jobs.filter(location__icontains=location)
 
-    # 💰 SALARY FILTER
+    # SALARY FILTER
     if salary:
         try:
             jobs = jobs.filter(salary__gte=int(salary))
         except:
             pass
 
-    # 📊 EXPERIENCE FILTER (simple skill-based match)
+    # EXPERIENCE FILTER
     if experience:
         jobs = jobs.filter(skills__icontains=experience)
 
@@ -60,10 +46,21 @@ def home(request):
 
 # 🔥 JOB DETAIL PAGE
 def job_detail(request, id):
-
     job = get_object_or_404(Job, id=id)
-
     return render(request, 'job_detail.html', {'job': job})
+
+
+# 🔥 RECRUITER - SEE APPLICANTS
+@login_required
+def recruiter_applicants(request, job_id):
+
+    job = get_object_or_404(Job, id=job_id)
+    applications = Application.objects.filter(job=job).order_by('-id')
+
+    return render(request, 'applicants_list.html', {
+        'job': job,
+        'applications': applications
+    })
 
 
 # 🔥 ADD JOB (RECRUITER ONLY)
@@ -76,14 +73,12 @@ def add_job(request):
         return redirect('home')
 
     if request.method == "POST":
-
         form = JobForm(request.POST)
 
         if form.is_valid():
             job = form.save(commit=False)
             job.posted_by = request.user
             job.save()
-
             return redirect('dashboard')
 
     else:
@@ -97,14 +92,12 @@ def add_job(request):
 def edit_job(request, id):
 
     job = get_object_or_404(Job, id=id)
-
     profile = get_object_or_404(Profile, user=request.user)
 
     if profile.user_type != "recruiter":
         return redirect('home')
 
     if request.method == "POST":
-
         form = JobForm(request.POST, instance=job)
 
         if form.is_valid():
@@ -122,18 +115,16 @@ def edit_job(request, id):
 def delete_job(request, id):
 
     job = get_object_or_404(Job, id=id)
-
     profile = get_object_or_404(Profile, user=request.user)
 
     if profile.user_type != "recruiter":
         return redirect('home')
 
     job.delete()
-
     return redirect('dashboard')
 
 
-# 📊 DASHBOARD (STATS)
+# 📊 DASHBOARD
 @login_required
 def dashboard(request):
 
